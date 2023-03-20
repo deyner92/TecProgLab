@@ -1,22 +1,25 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package zoologico;
+package zoologicomaven;
 
 /**
  *
  * @author Deyner Tenorio
  */
-public class Tiquetes 
-{
+public class Ticket{
     private int id=0;
     private double valor;
 
-    public Tiquetes(double valor)
+    public Ticket(double valor)
     {
         this.valor = valor;
         
+     }
+    public Ticket()
+    {
+               
      }
 
     public int getId() {

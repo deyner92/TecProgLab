@@ -1,18 +1,15 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package zoologico;
+package zoologicomaven;
 
 public class DepartamentoLogistica
 {
 
-    
-
-
     public static void  ingresarAnimalSalvaje (String animal) //no sabemos si es estatico
         {
-            AnimalesSalvajes aniSal =new AnimalesSalvajes("1",1,"Lorenzo","León",'m',10);
+            AnimalSalvaje aniSal =new AnimalSalvaje("1",1,"Lorenzo","León",'m',10);
                         
         }
     
@@ -20,7 +17,7 @@ public class DepartamentoLogistica
     
     public static void ingresarAnimalDomestico ()
         {
-            AnimalesDomesticos aniDom = new AnimalesDomesticos("casa",1,"Paco","gato",'m',1);
+            AnimalDomestico aniDom = new AnimalDomestico("casa",1,"Paco","gato",'m',1);
         }
     public static void admonZoo(){
         
