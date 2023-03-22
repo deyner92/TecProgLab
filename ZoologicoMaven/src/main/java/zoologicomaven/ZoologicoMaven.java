@@ -3,10 +3,22 @@
 package zoologicomaven;
 
 public class ZoologicoMaven {
+    
+    private static VentanaPrincipal objVentana = new VentanaPrincipal();
 
     public static void main(String[] args) 
     {
-         VentanaPrincipal objVentana = new VentanaPrincipal();
+         
+        MostrarVentanaPrincipal();
+    }
+    
+    
+    public static void MostrarVentanaPrincipal(){
+        
         objVentana.setVisible(true);
+    }
+     public static void OcultarVentanaPrincipal(){
+        
+        objVentana.setVisible(false);
     }
 }
