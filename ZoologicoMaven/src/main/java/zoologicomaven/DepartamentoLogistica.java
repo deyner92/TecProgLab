@@ -4,29 +4,45 @@
  */
 package zoologicomaven;
 
+import java.util.ArrayList;
+
 public class DepartamentoLogistica
 {
 
-    public static void  ingresarAnimalSalvaje (String animal) //no sabemos si es estatico
+    private ArrayList<AnimalSalvaje> arrayAnimalSalvaje;
+    private ArrayList<AnimalDomestico> arrayAnimalDomestico;
+    
+      public void DepartamentoLogistica(){
+        
+         arrayAnimalSalvaje = new ArrayList<AnimalSalvaje>();
+        arrayAnimalDomestico = new ArrayList<AnimalDomestico>();
+            
+    }
+
+    public ArrayList<AnimalSalvaje> getArrayAnimalSalvaje() {
+        return arrayAnimalSalvaje;
+    }
+
+    public ArrayList<AnimalDomestico> getArrayAnimalDomestico() {
+        return arrayAnimalDomestico;
+    }
+
+
+
+    
+    public void  ingresarAnimalSalvaje (AnimalSalvaje aniSal) //no sabemos si es estatico
         {
-            AnimalSalvaje aniSal =new AnimalSalvaje("1",1,"Lorenzo","León",'m',10);
-                        
+           
+            arrayAnimalSalvaje.add(aniSal);
+            
         }
     
    //  public AnimalesDomesticos(String uso, int codigo, String nombre, String especie, char sexo, int edad) {
     
-    public static void ingresarAnimalDomestico ()
+    public  void ingresarAnimalDomestico (AnimalDomestico aniDom)
         {
-            AnimalDomestico aniDom = new AnimalDomestico("casa",1,"Paco","gato",'m',1);
+            arrayAnimalDomestico.add(aniDom);
         }
-    public static void admonZoo(){
-        
-        
-       // int opcion = leerInt("ingrese su opción");
-        
-        
-        
-        
-    }
+
 
 }

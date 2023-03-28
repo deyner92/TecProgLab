@@ -2,14 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package zoologicomaven;
+package zoologicomaven.Vistas;
 
+import zoologicomaven.ZoologicoMaven;
+
+import com.itextpdf.text.pdf.PdfPTable;
+import java.io.FileOutputStream;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import zoologicomaven.Adicional;
 /**
  *
  * @author Deyner Tenorio
  */
 public class VentanaTicket extends javax.swing.JFrame {
 
+   private Adicional adicional;
     /**
      * Creates new form VentanaTicket
      */
@@ -18,6 +29,62 @@ public class VentanaTicket extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    
+    public String GenerarInforme() throws FileNotFoundException, DocumentException
+    {
+        Document documento = new Document();
+        String txt = "ZOODI\n" +
+            "Administración\n" +
+" Internacional de Zoológicos", ruta="D:/Info.pdf";
+        
+        PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+        documento.open();
+        
+        Font fontTitulo = new Font(Font.FontFamily.TIMES_ROMAN,26,Font.BOLD);
+        Paragraph titulo = new Paragraph (txt,fontTitulo);
+        titulo.setAlignment(Element.ALIGN_RIGHT);
+        //documento.add(titulo);
+        
+        PdfPTable tablaEncabezado = new PdfPTable(2);
+        
+        //Paragraph paragraph1 = new Paragraph ("");
+        Paragraph paragraph = new Paragraph ( 
+                                                                           "\n"+
+                                               "Medellín 13 de marzo de 2023\n"+
+                                                                            "\n"+
+       "La Administración Internacional de Zoológicos ZOODI, quiere agradecer su participación en la construcción de este nuevo software y le recuerda la necesidad de tener información actualizada y verás de sus ventas en cada uno de sus Zoológicos. Por lo cual ha diseñado el siguiente informe como Mínimo Producto viable a la entrega de su trabajo.  MPV.\n" +
+"Esperamos tener pronto la oportunidad de realizar las pruebas de su aplicación.\n" +
+"\n" +
+"\n" +
+"\n" +
+"\n" +
+"Atentamente,\n" +
+"\n" +
+"Diana Margot López H\n" +
+"CEO");
+                
+                
+       // documento.add(paragraph);
+        try
+        {
+            Image foto = Image.getInstance("Imagen1.jpg");
+              foto.scaleToFit(200, 200);
+               foto.setAlignment(Chunk.ALIGN_LEFT);
+        //documento.add(foto);
+        tablaEncabezado.addCell(foto);
+        tablaEncabezado.addCell(titulo);
+        documento.add(tablaEncabezado);
+        documento.add(paragraph);
+        }
+        catch ( Exception e )
+        {
+        e.printStackTrace();
+        }
+
+        documento.close();
+        
+        return ruta;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +123,7 @@ public class VentanaTicket extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         lbValorTotal = new javax.swing.JLabel();
         lbTitulo1 = new javax.swing.JLabel();
+        btnLimpiar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -285,6 +353,13 @@ public class VentanaTicket extends javax.swing.JFrame {
         lbTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitulo1.setText("Adultos: 10.000  -  Niños: 5.000");
 
+        btnLimpiar1.setText("Generar informe");
+        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,13 +376,15 @@ public class VentanaTicket extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(81, 81, 81))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnMenuPpal)
-                                .addGap(67, 67, 67)))
-                        .addGap(81, 81, 81))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLimpiar1)
+                                .addGap(67, 67, 67))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -369,7 +446,8 @@ public class VentanaTicket extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                            .addComponent(btnMenuPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnMenuPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLimpiar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -472,6 +550,21 @@ public class VentanaTicket extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCalcularActionPerformed
 
+    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            
+            adicional = new Adicional();
+            adicional.MostrarPopUp("Informe generado correctamente en: "+GenerarInforme());
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(VentanaTicket.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(VentanaTicket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnLimpiar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -524,6 +617,7 @@ public class VentanaTicket extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnLimpiar1;
     private javax.swing.JButton btnMenuPpal;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;

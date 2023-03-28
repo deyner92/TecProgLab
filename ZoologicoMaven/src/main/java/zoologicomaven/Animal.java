@@ -1,8 +1,14 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package zoologicomaven;
 
+/**
+ *
+ * @author Deyner Tenorio
+ */
 public class Animal {
-    
     private int codigo;
     private String nombre;
     private String especie;
@@ -71,5 +77,4 @@ public class Animal {
         
         return  "Animal {"+"codigo="+codigo+", nombre="+nombre+", especie="+especie+", sexo="+sexo+", edad="+edad+"}";
     }
-    
 }

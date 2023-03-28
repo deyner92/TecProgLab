@@ -1,15 +1,18 @@
 
 package zoologicomaven;
 
+import zoologicomaven.Interfaces.ComportaminetoAnimal;
+
 public class AnimalDomestico extends Animal implements ComportaminetoAnimal
 {
     private String uso;
-    private boolean alimentado=false;
-    private boolean descansando=false;
+    private boolean alimentado;
+    private boolean descansando;
     
     public AnimalDomestico(String uso, int codigo, String nombre, String especie, char sexo, int edad) {
         super(codigo, nombre, especie, sexo, edad);
         this.uso = uso;
+  
     }
 
    

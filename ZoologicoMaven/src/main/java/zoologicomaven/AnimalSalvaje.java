@@ -1,13 +1,18 @@
 
 package zoologicomaven;
 
+import zoologicomaven.Interfaces.ComportaminetoAnimal;
+
+
+
 public class AnimalSalvaje extends Animal  implements ComportaminetoAnimal
 
 {
-
+    
     private String nivelPeligrosidad;
     private boolean alimentado=false;
     private boolean descansando=false;
+    
     
      public AnimalSalvaje()
      {
@@ -17,6 +22,8 @@ public class AnimalSalvaje extends Animal  implements ComportaminetoAnimal
     public AnimalSalvaje(String nivelPeligrosidad, int codigo, String nombre, String especie, char sexo, int edad) {
         super(codigo, nombre, especie, sexo, edad);
         this.nivelPeligrosidad = nivelPeligrosidad;
+        //Comer(comer);
+        //Descansar(descansar);
     }
     
            
