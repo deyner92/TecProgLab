@@ -15,7 +15,7 @@ public class Zoologico {
     public static void main(String[] args) 
     {
         // TODO code application logic here
-        
+        AnimalesSalvajes aniSal1 = new  AnimalesSalvajes("alto",1,"Leo","Leon",'M',12);
         System.out.println("Los Zoo");
     }
 }
