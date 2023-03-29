@@ -10,16 +10,16 @@ package zoologicomaven;
  */
 public class Ticket{
     private int id=0;
-    private double valor;
+    private float valor;
 
-    public Ticket(double valor)
+    public Ticket(float valor,int id)
     {
         this.valor = valor;
-        
+        this.id= id;
      }
     public Ticket()
     {
-               
+          
      }
 
     public int getId() {
@@ -30,11 +30,11 @@ public class Ticket{
         this.id = id;
     }
 
-    public double getValor() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
     

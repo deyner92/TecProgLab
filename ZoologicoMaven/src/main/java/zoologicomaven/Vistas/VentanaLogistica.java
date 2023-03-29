@@ -4,8 +4,11 @@
  */
 package zoologicomaven.Vistas;
 
+import zoologicomaven.DepartamentoLogistica;
+import zoologicomaven.AnimalSalvaje;
+import zoologicomaven.AnimalDomestico;
 import zoologicomaven.ZoologicoMaven;
-
+import zoologicomaven.Adicional;
 /**
  *
  * @author Deyner Tenorio
@@ -16,6 +19,9 @@ public class VentanaLogistica extends javax.swing.JFrame {
      * Creates new form VentanaLogistica
      */
     public VentanaLogistica() {
+        
+       
+        
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -44,8 +50,8 @@ public class VentanaLogistica extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbFemenino = new javax.swing.JRadioButton();
+        rbMasculino = new javax.swing.JRadioButton();
         txtCodigo = new javax.swing.JTextField();
         txtEspecie = new javax.swing.JTextField();
         txtEdad = new javax.swing.JTextField();
@@ -67,13 +73,18 @@ public class VentanaLogistica extends javax.swing.JFrame {
         rbtDescSi = new javax.swing.JRadioButton();
         rbtDescNo = new javax.swing.JRadioButton();
         btnLimpiar1 = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
+        btnMostrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnCancelar.setText("Cancelar");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setForeground(new java.awt.Color(255, 51, 51));
         btnSalir.setText("Salir");
@@ -104,11 +115,12 @@ public class VentanaLogistica extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Sexo"));
 
-        btnGroupSexo.add(jRadioButton1);
-        jRadioButton1.setText("Femenino");
+        btnGroupSexo.add(rbFemenino);
+        rbFemenino.setText("Femenino");
 
-        btnGroupSexo.add(jRadioButton2);
-        jRadioButton2.setText("Masculino");
+        btnGroupSexo.add(rbMasculino);
+        rbMasculino.setSelected(true);
+        rbMasculino.setText("Masculino");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,27 +129,38 @@ public class VentanaLogistica extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbFemenino, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbMasculino, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton2)
+                .addComponent(rbMasculino)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(rbFemenino)
                 .addGap(21, 21, 21))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo"));
 
         btnGroupTipo.add(rbAnimalSalvaje);
+        rbAnimalSalvaje.setSelected(true);
         rbAnimalSalvaje.setText("Animal Salvaje");
+        rbAnimalSalvaje.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbAnimalSalvajeStateChanged(evt);
+            }
+        });
 
         btnGroupTipo.add(rbAnimalDomestico);
         rbAnimalDomestico.setText("Animal Domestico");
+        rbAnimalDomestico.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbAnimalDomesticoStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -213,13 +236,18 @@ public class VentanaLogistica extends javax.swing.JFrame {
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Animal Salvaje"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Característica"));
 
         jLabel8.setText("Uso:");
 
         jLabel9.setText("Nivel Peligrosidad:");
 
         listUso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mascota", "Alimento", "Trabajo", "Adorno" }));
+        listUso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listUsoActionPerformed(evt);
+            }
+        });
 
         listPeligrosidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muy bajo", "Bajo", "Medio", "Alto", "Muy Alto" }));
 
@@ -232,7 +260,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(listPeligrosidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(listUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -259,12 +287,14 @@ public class VentanaLogistica extends javax.swing.JFrame {
         jLabel4.setText("Descansando:");
 
         btnGroupAlimentado.add(rbtAlimSi);
+        rbtAlimSi.setSelected(true);
 
         btnGroupAlimentado.add(rbtAlimNo);
 
         jLabel7.setText("Si           No");
 
         btnGroupDescansando.add(rbtDescSi);
+        rbtDescSi.setSelected(true);
 
         btnGroupDescansando.add(rbtDescNo);
         rbtDescNo.addActionListener(new java.awt.event.ActionListener() {
@@ -307,9 +337,9 @@ public class VentanaLogistica extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(rbtAlimSi))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(rbtAlimSi, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel2))
                     .addComponent(rbtAlimNo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -321,7 +351,12 @@ public class VentanaLogistica extends javax.swing.JFrame {
 
         btnLimpiar1.setText("Limpiar");
 
-        btnLimpiar.setText("Buscar");
+        btnMostrar.setText("Mostar");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -348,7 +383,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGuardar)
                                 .addGap(20, 20, 20)
-                                .addComponent(btnLimpiar)
+                                .addComponent(btnMostrar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLimpiar1)
                                 .addGap(18, 18, 18)
@@ -375,7 +410,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVentanaPpal))
@@ -400,6 +435,89 @@ public class VentanaLogistica extends javax.swing.JFrame {
     private void rbtDescNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtDescNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtDescNoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        String nivelPeligrosidad;
+        int codigo=Integer.parseInt(txtCodigo.getText());
+        String nombre=txtNombre.getText();
+        String especie=txtEspecie.getText();
+        char sexo;
+        int edad=Integer.parseInt(txtEdad.getText());
+        String uso;
+        
+       
+        uso=(String)listUso.getSelectedItem();
+        nivelPeligrosidad=(String)listPeligrosidad.getSelectedItem();
+               
+        
+         if (rbMasculino.isSelected())
+             sexo='M';
+         else
+             sexo='F';
+             
+        boolean alimentado;
+        boolean descansando;      
+              
+             
+        
+        
+        AnimalSalvaje aniSal = new AnimalSalvaje( nivelPeligrosidad,  codigo,  nombre,  especie,  sexo,  edad);
+        
+        AnimalDomestico aniDom = new AnimalDomestico(uso, codigo,  nombre,  especie,  sexo,  edad);
+        
+        if (rbAnimalSalvaje.isSelected()){
+            DepartamentoLogistica.ingresarAnimalSalvaje(aniSal);
+        }
+        if (rbAnimalDomestico.isSelected()){
+        DepartamentoLogistica.ingresarAnimalDomestico(aniDom);
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void listUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listUsoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listUsoActionPerformed
+
+    private void rbAnimalSalvajeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbAnimalSalvajeStateChanged
+        // TODO add your handling code here:
+        
+        if(rbAnimalSalvaje.isSelected())
+        {
+            listUso.setEnabled(false);
+          
+        }
+        else
+        {   
+            listUso.setEnabled(true);
+        }
+    }//GEN-LAST:event_rbAnimalSalvajeStateChanged
+
+    private void rbAnimalDomesticoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbAnimalDomesticoStateChanged
+        // TODO add your handling code here:
+        
+         if(rbAnimalDomestico.isSelected())
+        {
+            listPeligrosidad.setEnabled(false);
+          
+        }
+        else
+        {   
+            listPeligrosidad.setEnabled(true);
+        }
+    }//GEN-LAST:event_rbAnimalDomesticoStateChanged
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        // TODO add your handling code here:
+        Adicional adicional =new Adicional();
+        
+        System.out.println("-------------------------Mostrar-----------------------");
+        DepartamentoLogistica.MostrarAnimalSalvaje();
+         DepartamentoLogistica.MostrarAnimalDomestico();
+         
+        
+         adicional.MostrarPopUp("En construcción: Por el momento se muestra en consola");
+         
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,8 +561,8 @@ public class VentanaLogistica extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroupSexo;
     private javax.swing.ButtonGroup btnGroupTipo;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnLimpiar1;
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVentanaPpal;
     private javax.swing.JLabel jLabel1;
@@ -461,13 +579,13 @@ public class VentanaLogistica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JComboBox<String> listPeligrosidad;
     private javax.swing.JComboBox<String> listUso;
     private javax.swing.JRadioButton rbAnimalDomestico;
     private javax.swing.JRadioButton rbAnimalSalvaje;
+    private javax.swing.JRadioButton rbFemenino;
+    private javax.swing.JRadioButton rbMasculino;
     private javax.swing.JRadioButton rbtAlimNo;
     private javax.swing.JRadioButton rbtAlimSi;
     private javax.swing.JRadioButton rbtDescNo;

@@ -21,8 +21,8 @@ public class Plan extends Ticket
        
     }
 
-    public Plan(String tipoPlan, int cantAdultos, int cantNinos, int descuento, double valor) {
-        super(valor);
+    public Plan(String tipoPlan, int cantAdultos, int cantNinos, int descuento, float valor,int id) {
+        super(valor,id);
         this.tipoPlan = tipoPlan;
         this.cantAdultos = cantAdultos;
         this.cantNinos = cantNinos;
@@ -59,6 +59,11 @@ public class Plan extends Ticket
 
     public void setDescuento(int descuento) {
         this.descuento = descuento;
+    }
+
+    @Override
+    public String toString() {
+        return "Plan{" + "tipoPlan=" + tipoPlan + ", cantAdultos=" + cantAdultos + ", cantNinos=" + cantNinos + ", descuento=" + descuento + '}';
     }
     
     
