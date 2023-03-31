@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import zoologicomaven.Adicional;
 import zoologicomaven.Plan;
+import java.text.DecimalFormat;
 /**
  *
  * @author Deyner Tenorio
@@ -25,18 +26,35 @@ public class VentanaTicket extends javax.swing.JFrame {
    private ArrayList<Plan> arrayPlan;
    private int idTicket;
    private Adicional adicional;
+   private DecimalFormat df = new DecimalFormat("#,###.##");
     /**
      * Creates new form VentanaTicket
      */
     public VentanaTicket() {
         
         initComponents();
-        arrayPlan=new ArrayList<Plan>();
         this.setLocationRelativeTo(null);
-        idTicket=1;
+        
+        arrayPlan=new ArrayList<Plan>();
+        AgregarVentas();
+        idTicket=ExtraerMaxNumTicket()+1;
+        lbId.setText(Integer.toHexString(idTicket));
     }
 
-  
+    
+       public void AgregarVentas(){
+        Plan plan1 = new Plan("Individual", 1, 0, 0, 10000,1);
+        Plan plan2 = new Plan("Pareja", 2, 0, 5, 19000,2);
+        Plan plan3 = new Plan("Familiar", 6, 2, 8, 64400,3);
+        Plan plan4 = new Plan("Corporativo", 60, 23, 10, 643500,4);
+        Plan plan5 = new Plan("Individual", 2, 0, 0, 20000,5);
+        arrayPlan.add(plan1);
+        arrayPlan.add(plan2);
+        arrayPlan.add(plan3);
+        arrayPlan.add(plan4);
+        arrayPlan.add(plan5);
+        
+       } 
       public void onEndPage(PdfWriter writer, Document document) {
         
           ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase("Zoologico Naturalvida | Carrera 47 # 89-52 Barrio Aguacatala - Medellín | Tel: 320 000 1252"), 295, 30, 0);
@@ -44,8 +62,29 @@ public class VentanaTicket extends javax.swing.JFrame {
     
       }
     
+      public int ExtraerMaxNumTicket()
+      {
+          Plan elemento =new Plan();
+          int i , max=0;
+           for (i=0;i<arrayPlan.size();i++)
+        {    
+            elemento=arrayPlan.get(i);
+            System.out.println(max<elemento.getId());
+            if(max<elemento.getId()){
+                max=elemento.getId();
+                System.out.println(max);
+            }
+                
+         
+        }
+           return max;
+      }
+      
+      
+      
     public String GenerarInforme() throws FileNotFoundException, DocumentException
     {
+        
         Document documento = new Document();
         String txt = "Zoologico\n" + "Naturalvida\n" + "Conservando la naturaleza \nInforme de Ventas", ruta="D:/Info.pdf";
         PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta));
@@ -101,11 +140,11 @@ public class VentanaTicket extends javax.swing.JFrame {
             
             PdfPCell idCelda            =new PdfPCell(new Paragraph(Integer.toString(elemento.getId())));         
             PdfPCell tipoPlanCelda      =new PdfPCell(new Paragraph(elemento.getTipoPlan()));
-            PdfPCell cantAdultosCelda   =new PdfPCell(new Paragraph(Integer.toString(elemento.getCantAdultos())));
-            PdfPCell cantNinosCelda     =new PdfPCell(new Paragraph(Integer.toString(elemento.getCantNinos())));
-            PdfPCell subValorCelda      =new PdfPCell(new Paragraph(Float.toString(subValor)));
-            PdfPCell descuentoCelda     =new PdfPCell(new Paragraph((Integer.toString(elemento.getDescuento())+"%")));
-            PdfPCell valorCelda         =new PdfPCell(new Paragraph(Float.toString(elemento.getValor())));
+            PdfPCell cantAdultosCelda   =new PdfPCell(new Paragraph(df.format(elemento.getCantAdultos())));
+            PdfPCell cantNinosCelda     =new PdfPCell(new Paragraph(df.format(elemento.getCantNinos())));
+            PdfPCell subValorCelda      =new PdfPCell(new Paragraph(df.format(subValor)));
+            PdfPCell descuentoCelda     =new PdfPCell(new Paragraph((df.format(elemento.getDescuento())+"%")));
+            PdfPCell valorCelda         =new PdfPCell(new Paragraph(df.format(elemento.getValor())));
             table.addCell(idCelda);
             table.addCell(tipoPlanCelda);
             table.addCell(cantAdultosCelda);
@@ -125,11 +164,11 @@ public class VentanaTicket extends javax.swing.JFrame {
         
         PdfPCell cell7 = new PdfPCell(new Paragraph("Totales",fontTablas));
         PdfPCell cell8 = new PdfPCell(new Paragraph(""));
-        PdfPCell cell9 = new PdfPCell(new Paragraph(Integer.toString(cantAdultos),fontTablas));
-        PdfPCell cell10 = new PdfPCell(new Paragraph(Integer.toString(cantNinos),fontTablas));
-        PdfPCell cell11 = new PdfPCell(new Paragraph(Float.toString(ventas),fontTablas));
-        PdfPCell cell12 = new PdfPCell(new Paragraph((Float.toString(desc)+"%"),fontTablas));
-        PdfPCell cell13 = new PdfPCell(new Paragraph(Float.toString(totalVentas),fontTablas));
+        PdfPCell cell9 = new PdfPCell(new Paragraph(df.format(cantAdultos),fontTablas));
+        PdfPCell cell10 = new PdfPCell(new Paragraph(df.format(cantNinos),fontTablas));
+        PdfPCell cell11 = new PdfPCell(new Paragraph(df.format(ventas),fontTablas));
+        PdfPCell cell12 = new PdfPCell(new Paragraph((df.format(desc)+"%"),fontTablas));
+        PdfPCell cell13 = new PdfPCell(new Paragraph(df.format(totalVentas),fontTablas));
           table.addCell(cell7);
           table.addCell(cell8);
           table.addCell(cell9);
@@ -668,11 +707,11 @@ public class VentanaTicket extends javax.swing.JFrame {
         
         desc=Float.parseFloat(lbPorcDesc.getText().replace("%", ""))/100;
         ValorAdultos = Float.parseFloat(txtAdultos.getText())*10000 *(1-desc);
-        lbValorAdultos.setText(Float.toString(ValorAdultos));
+        lbValorAdultos.setText(df.format(ValorAdultos));
         ValorNinos = Float.parseFloat(txtNinos.getText())*5000* (1-desc);
-        lbValorNinos.setText(Float.toString(ValorNinos));
+        lbValorNinos.setText(df.format(ValorNinos));
         
-        lbValorTotal.setText(Float.toString(ValorAdultos +ValorNinos));
+        lbValorTotal.setText(df.format(ValorAdultos +ValorNinos));
         
     }//GEN-LAST:event_btnCalcularActionPerformed
 
@@ -723,7 +762,7 @@ public class VentanaTicket extends javax.swing.JFrame {
         int cantAdultos=Integer.parseInt(txtAdultos.getText());
         int cantNinos=Integer.parseInt(txtNinos.getText());
         int descuento=Integer.parseInt(lbPorcDesc.getText().replace("%", ""));
-        float valor=Float.parseFloat(lbValorTotal.getText());
+        float valor=Float.parseFloat(lbValorTotal.getText().replace(".", ""));
         
         if(rbIndividual.isSelected())
         {
