@@ -36,24 +36,32 @@ public class VentanaTicket extends javax.swing.JFrame {
         idTicket=1;
     }
 
+  
+      public void onEndPage(PdfWriter writer, Document document) {
+        
+          ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase("Zoologico Naturalvida | Carrera 47 # 89-52 Barrio Aguacatala - Medellín | Tel: 320 000 1252"), 295, 30, 0);
+        //ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase("page " + document.getPageNumber()), 550, 30, 0);
+    
+      }
     
     public String GenerarInforme() throws FileNotFoundException, DocumentException
     {
         Document documento = new Document();
-        String txt = "ZOODI\n" +
-            "Administración\n" +
-" Internacional de Zoológicos", ruta="D:/Info.pdf";
+        String txt = "Zoologico\n" + "Naturalvida\n" + "Conservando la naturaleza \nInforme de Ventas", ruta="D:/Info.pdf";
+        PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(ruta));
         
-        PdfWriter.getInstance(documento, new FileOutputStream(ruta));
         documento.open();
         
-        Font fontTitulo = new Font(Font.FontFamily.TIMES_ROMAN,26,Font.BOLD);
+        Font fontTitulo = new Font(Font.FontFamily.HELVETICA,26,Font.BOLD);
+        Font fontTablas = new Font(Font.FontFamily.HELVETICA,12,Font.BOLD);
         Paragraph titulo = new Paragraph (txt,fontTitulo);
+        
         titulo.setAlignment(Element.ALIGN_RIGHT);
         //documento.add(titulo);
         
         PdfPTable tablaEncabezado = new PdfPTable(2);
         tablaEncabezado.setWidthPercentage(100);
+        
         //Paragraph paragraph1 = new Paragraph ("");
         
         
@@ -63,15 +71,15 @@ public class VentanaTicket extends javax.swing.JFrame {
                 table.setWidthPercentage(100); // La tabla ocupa el ancho completo de la página
                 table.setSpacingBefore(10f); // Espacio antes de la tabla
                 table.setSpacingAfter(10f); // Espacio después de la tabla
-//String tipoPlan, int cantAdultos, int cantNinos, int descuento, float valor
+
                 // Agrega encabezados a la tabla
-                PdfPCell cell0 = new PdfPCell(new Paragraph("Id venta"));
-                PdfPCell cell1 = new PdfPCell(new Paragraph("Tipo de Plan"));
-                PdfPCell cell2 = new PdfPCell(new Paragraph("Cant. Adultos"));
-                PdfPCell cell3 = new PdfPCell(new Paragraph("Cant. Ninos"));
-                PdfPCell cell4 = new PdfPCell(new Paragraph("Valor ant. Desc."));
-                PdfPCell cell5 = new PdfPCell(new Paragraph("descuento"));
-                PdfPCell cell6 = new PdfPCell(new Paragraph("valor Total"));
+                PdfPCell cell0 = new PdfPCell(new Paragraph("Id venta",fontTablas));
+                PdfPCell cell1 = new PdfPCell(new Paragraph("Tipo de Plan",fontTablas));
+                PdfPCell cell2 = new PdfPCell(new Paragraph("Cant. Adultos",fontTablas));
+                PdfPCell cell3 = new PdfPCell(new Paragraph("Cant. Ninos",fontTablas));
+                PdfPCell cell4 = new PdfPCell(new Paragraph("Valor ant. Desc.",fontTablas));
+                PdfPCell cell5 = new PdfPCell(new Paragraph("descuento",fontTablas));
+                PdfPCell cell6 = new PdfPCell(new Paragraph("valor Total",fontTablas));
                 table.addCell(cell0);
                 table.addCell(cell1);
                 table.addCell(cell2);
@@ -81,7 +89,9 @@ public class VentanaTicket extends javax.swing.JFrame {
                 table.addCell(cell6);
                 
           Plan elemento;
-          int i;
+          int i, cantNinos=0,cantAdultos=0;
+          float ventas=0, totalVentas=0,desc; 
+                  
          for (i=0;i<arrayPlan.size();i++)
         {    
             elemento=arrayPlan.get(i);
@@ -89,12 +99,12 @@ public class VentanaTicket extends javax.swing.JFrame {
             subValor=(elemento.getValor()/(1.0f-(elemento.getDescuento()/100.0f)));
             System.out.println(""+subValor);
             
-            PdfPCell idCelda   =new PdfPCell(new Paragraph(Integer.toString(elemento.getId())));         
+            PdfPCell idCelda            =new PdfPCell(new Paragraph(Integer.toString(elemento.getId())));         
             PdfPCell tipoPlanCelda      =new PdfPCell(new Paragraph(elemento.getTipoPlan()));
             PdfPCell cantAdultosCelda   =new PdfPCell(new Paragraph(Integer.toString(elemento.getCantAdultos())));
             PdfPCell cantNinosCelda     =new PdfPCell(new Paragraph(Integer.toString(elemento.getCantNinos())));
             PdfPCell subValorCelda      =new PdfPCell(new Paragraph(Float.toString(subValor)));
-            PdfPCell descuentoCelda     =new PdfPCell(new Paragraph(Integer.toString(elemento.getDescuento())+"%"));
+            PdfPCell descuentoCelda     =new PdfPCell(new Paragraph((Integer.toString(elemento.getDescuento())+"%")));
             PdfPCell valorCelda         =new PdfPCell(new Paragraph(Float.toString(elemento.getValor())));
             table.addCell(idCelda);
             table.addCell(tipoPlanCelda);
@@ -103,12 +113,32 @@ public class VentanaTicket extends javax.swing.JFrame {
             table.addCell(subValorCelda);
             table.addCell(descuentoCelda);
             table.addCell(valorCelda);
+            
+            ventas+=subValor;
+            totalVentas+=elemento.getValor();
+            cantNinos+=elemento.getCantNinos();
+            cantAdultos+=elemento.getCantAdultos();
         }
-                    
+         
+         desc=(1-(totalVentas/ventas))*100;
+         
         
-                      
-                
-       // documento.add(paragraph);
+        PdfPCell cell7 = new PdfPCell(new Paragraph("Totales",fontTablas));
+        PdfPCell cell8 = new PdfPCell(new Paragraph(""));
+        PdfPCell cell9 = new PdfPCell(new Paragraph(Integer.toString(cantAdultos),fontTablas));
+        PdfPCell cell10 = new PdfPCell(new Paragraph(Integer.toString(cantNinos),fontTablas));
+        PdfPCell cell11 = new PdfPCell(new Paragraph(Float.toString(ventas),fontTablas));
+        PdfPCell cell12 = new PdfPCell(new Paragraph((Float.toString(desc)+"%"),fontTablas));
+        PdfPCell cell13 = new PdfPCell(new Paragraph(Float.toString(totalVentas),fontTablas));
+          table.addCell(cell7);
+          table.addCell(cell8);
+          table.addCell(cell9);
+          table.addCell(cell10);
+          table.addCell(cell11);
+          table.addCell(cell12);
+          table.addCell(cell13);
+         
+                    
         try
         {
             Image foto = Image.getInstance("Imagen1.jpg");
@@ -124,9 +154,18 @@ public class VentanaTicket extends javax.swing.JFrame {
         {
         e.printStackTrace();
         }
+                      
+              
+       // documento.add(paragraph);
 
-        documento.close();
         
+      onEndPage(writer,documento);
+           
+              
+               
+       documento.close();
+        
+       
         return ruta;
     }
     /**
