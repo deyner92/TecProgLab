@@ -15,6 +15,10 @@ public class AnimalDomestico extends Animal implements ComportaminetoAnimal
   
     }
 
+    public AnimalDomestico()
+    {
+        
+    }
    
     public String getUso() {
         return uso;

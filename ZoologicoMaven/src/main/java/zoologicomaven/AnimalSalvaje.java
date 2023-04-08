@@ -26,7 +26,7 @@ public class AnimalSalvaje extends Animal  implements ComportaminetoAnimal
         //Descansar(descansar);
     }
     
-           
+          
 
     public String getNivelPeligrosidad() 
     
@@ -55,7 +55,7 @@ public class AnimalSalvaje extends Animal  implements ComportaminetoAnimal
     public void setAlimentado(boolean alimentado) {
         this.alimentado = alimentado;
     }
-
+    
         
     
     

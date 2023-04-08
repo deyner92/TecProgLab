@@ -25,6 +25,40 @@ public class VentanaLogistica extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
+    public void CambiarEstadoComponentes(boolean estado)
+    {
+        txtNombre.setEnabled(estado);
+        txtEspecie.setEnabled(estado);
+        txtEdad.setEnabled(estado);
+        rbMasculino.setEnabled(estado);
+        rbFemenino.setEnabled(estado);
+        rbAnimalSalvaje.setEnabled(estado);
+        rbAnimalDomestico.setEnabled(estado);
+        btnGuardar.setEnabled(estado);
+        listUso.setEnabled(estado);
+        listPeligrosidad.setEnabled(estado);
+        rbtAlimSi.setEnabled(estado);
+        rbtAlimNo.setEnabled(estado);
+        rbtDescSi.setEnabled(estado);
+        rbtDescNo.setEnabled(estado);
+        
+    }
+    
+    public void Limpiar()
+    {
+                txtCodigo.setText("");
+                txtNombre.setText("");
+                txtEspecie.setText("");
+                txtEdad.setText("");
+                rbMasculino.isSelected();
+                rbAnimalSalvaje.isSelected();
+                listPeligrosidad.setSelectedIndex(0);
+                rbtAlimSi.isSelected();
+                rbtDescSi.isSelected();
+                txtCodigo.setEnabled(true);
+                CambiarEstadoComponentes(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,6 +93,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
         rbAnimalSalvaje = new javax.swing.JRadioButton();
         rbAnimalDomestico = new javax.swing.JRadioButton();
         txtNombre = new javax.swing.JTextField();
+        btnMostrar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -73,13 +108,13 @@ public class VentanaLogistica extends javax.swing.JFrame {
         rbtDescSi = new javax.swing.JRadioButton();
         rbtDescNo = new javax.swing.JRadioButton();
         btnLimpiar1 = new javax.swing.JButton();
-        btnMostrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnCancelar.setText("Cancelar");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -117,10 +152,12 @@ public class VentanaLogistica extends javax.swing.JFrame {
 
         btnGroupSexo.add(rbFemenino);
         rbFemenino.setText("Femenino");
+        rbFemenino.setEnabled(false);
 
         btnGroupSexo.add(rbMasculino);
         rbMasculino.setSelected(true);
         rbMasculino.setText("Masculino");
+        rbMasculino.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -143,11 +180,16 @@ public class VentanaLogistica extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
+        txtEspecie.setEnabled(false);
+
+        txtEdad.setEnabled(false);
+
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo"));
 
         btnGroupTipo.add(rbAnimalSalvaje);
         rbAnimalSalvaje.setSelected(true);
         rbAnimalSalvaje.setText("Animal Salvaje");
+        rbAnimalSalvaje.setEnabled(false);
         rbAnimalSalvaje.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 rbAnimalSalvajeStateChanged(evt);
@@ -156,6 +198,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
 
         btnGroupTipo.add(rbAnimalDomestico);
         rbAnimalDomestico.setText("Animal Domestico");
+        rbAnimalDomestico.setEnabled(false);
         rbAnimalDomestico.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 rbAnimalDomesticoStateChanged(evt);
@@ -182,6 +225,15 @@ public class VentanaLogistica extends javax.swing.JFrame {
                 .addGap(0, 21, Short.MAX_VALUE))
         );
 
+        txtNombre.setEnabled(false);
+
+        btnMostrar.setText("Buscar");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -189,21 +241,24 @@ public class VentanaLogistica extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(24, 24, 24)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtEspecie)
-                                .addComponent(txtEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                .addComponent(txtNombre)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtEspecie)
+                                    .addComponent(txtEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(txtNombre))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMostrar)))
+                .addGap(0, 19, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +271,8 @@ public class VentanaLogistica extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -233,7 +289,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Característica"));
@@ -243,6 +299,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
         jLabel9.setText("Nivel Peligrosidad:");
 
         listUso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mascota", "Alimento", "Trabajo", "Adorno" }));
+        listUso.setEnabled(false);
         listUso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listUsoActionPerformed(evt);
@@ -250,6 +307,7 @@ public class VentanaLogistica extends javax.swing.JFrame {
         });
 
         listPeligrosidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muy bajo", "Bajo", "Medio", "Alto", "Muy Alto" }));
+        listPeligrosidad.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -288,15 +346,19 @@ public class VentanaLogistica extends javax.swing.JFrame {
 
         btnGroupAlimentado.add(rbtAlimSi);
         rbtAlimSi.setSelected(true);
+        rbtAlimSi.setEnabled(false);
 
         btnGroupAlimentado.add(rbtAlimNo);
+        rbtAlimNo.setEnabled(false);
 
         jLabel7.setText("Si           No");
 
         btnGroupDescansando.add(rbtDescSi);
         rbtDescSi.setSelected(true);
+        rbtDescSi.setEnabled(false);
 
         btnGroupDescansando.add(rbtDescNo);
+        rbtDescNo.setEnabled(false);
         rbtDescNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtDescNoActionPerformed(evt);
@@ -350,11 +412,9 @@ public class VentanaLogistica extends javax.swing.JFrame {
         );
 
         btnLimpiar1.setText("Limpiar");
-
-        btnMostrar.setText("Mostar");
-        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarActionPerformed(evt);
+                btnLimpiar1ActionPerformed(evt);
             }
         });
 
@@ -382,11 +442,9 @@ public class VentanaLogistica extends javax.swing.JFrame {
                                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGuardar)
-                                .addGap(20, 20, 20)
-                                .addComponent(btnMostrar)
-                                .addGap(18, 18, 18)
+                                .addGap(62, 62, 62)
                                 .addComponent(btnLimpiar1)
-                                .addGap(18, 18, 18)
+                                .addGap(66, 66, 66)
                                 .addComponent(btnCancelar)))
                         .addGap(0, 27, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -407,14 +465,17 @@ public class VentanaLogistica extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVentanaPpal))
-                .addGap(16, 16, 16))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVentanaPpal))
+                        .addGap(16, 16, 16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -456,22 +517,49 @@ public class VentanaLogistica extends javax.swing.JFrame {
          else
              sexo='F';
              
-        boolean alimentado;
-        boolean descansando;      
-              
+        boolean alimentado = rbtAlimSi.isSelected();
+        boolean descansando= rbtDescSi.isSelected();  
+        
+        
+       
+        
+        
+        AnimalSalvaje animalSal = new AnimalSalvaje();
+        AnimalDomestico animalDom = new AnimalDomestico();
+        
+        animalSal=  DepartamentoLogistica.MostrarAnimalSalvaje    (Integer.parseInt(txtCodigo.getText()));
+        animalDom=  DepartamentoLogistica.MostrarAnimalDomestico  (Integer.parseInt(txtCodigo.getText()));
+        
+         if (animalSal.getNombre()==null && animalDom.getNombre()== null)
+         {
+            if (rbAnimalSalvaje.isSelected()){
+                AnimalSalvaje aniSal = new AnimalSalvaje( nivelPeligrosidad,  codigo,  nombre,  especie,  sexo,  edad);
+                aniSal.setAlimentado(alimentado);
+                aniSal.setDescansando(alimentado);
+                DepartamentoLogistica.ingresarAnimalSalvaje(aniSal);
+            }
+
+            if (rbAnimalDomestico.isSelected()){
+                AnimalDomestico aniDom = new AnimalDomestico(uso, codigo,  nombre,  especie,  sexo,  edad);
+                aniDom.setAlimentado(alimentado);
+                aniDom.setDescansando(descansando);
+                DepartamentoLogistica.ingresarAnimalDomestico(aniDom);
+            }
+         }
+         else 
+         {
+              if (rbAnimalSalvaje.isSelected()){
+                
+                DepartamentoLogistica.ActualizarAnimalSalvaje(nivelPeligrosidad,  codigo,  nombre,  especie,  sexo,  edad,alimentado,descansando);
+            }
+
+            if (rbAnimalDomestico.isSelected()){
+                
+                DepartamentoLogistica.ActualizarAnimalDomestico(uso, codigo,  nombre,  especie,  sexo,  edad,alimentado,descansando);
+            }
              
-        
-        
-        AnimalSalvaje aniSal = new AnimalSalvaje( nivelPeligrosidad,  codigo,  nombre,  especie,  sexo,  edad);
-        
-        AnimalDomestico aniDom = new AnimalDomestico(uso, codigo,  nombre,  especie,  sexo,  edad);
-        
-        if (rbAnimalSalvaje.isSelected()){
-            DepartamentoLogistica.ingresarAnimalSalvaje(aniSal);
-        }
-        if (rbAnimalDomestico.isSelected()){
-        DepartamentoLogistica.ingresarAnimalDomestico(aniDom);
-        }
+         }
+        Limpiar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void listUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listUsoActionPerformed
@@ -509,15 +597,116 @@ public class VentanaLogistica extends javax.swing.JFrame {
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         // TODO add your handling code here:
         Adicional adicional =new Adicional();
+        AnimalSalvaje animalSal = new AnimalSalvaje();
+        AnimalDomestico animalDom = new AnimalDomestico();
         
-        System.out.println("-------------------------Mostrar-----------------------");
-        DepartamentoLogistica.MostrarAnimalSalvaje();
-         DepartamentoLogistica.MostrarAnimalDomestico();
-         
+        animalSal=  DepartamentoLogistica.MostrarAnimalSalvaje    (Integer.parseInt(txtCodigo.getText()));
+        animalDom=  DepartamentoLogistica.MostrarAnimalDomestico  (Integer.parseInt(txtCodigo.getText()));
         
-         adicional.MostrarPopUp("En construcción: Por el momento se muestra en consola");
+        CambiarEstadoComponentes(true);
+        
+        txtCodigo.setEnabled(false);
+        
+        if (animalSal.getNombre()==null && animalDom.getNombre()== null)
+        {
+            adicional.MostrarPopUp("El animal no existe, puede registrarlo.");
+           
+        }
+        else
+        {   
+                rbAnimalSalvaje.setEnabled(false);
+                rbAnimalDomestico.setEnabled(false);
+            
+                if (animalSal.getNombre()!=null)
+                {
+                
+                    
+                        txtNombre.setText(animalSal.getNombre());
+                        txtEspecie.setText(animalSal.getEspecie());
+                        txtEdad.setText(Integer.toString(animalSal.getEdad()));
+
+                        if (animalSal.getSexo()=='M')
+                        {
+                            rbMasculino.setSelected(true);
+                        }
+                        else 
+                        {
+                            rbFemenino.setSelected(true);
+                        }
+                        
+                        rbAnimalSalvaje.setSelected(true);
+
+                         listPeligrosidad.setSelectedItem(animalSal.getNivelPeligrosidad());
+                  
+                        
+                        if (animalSal.isAlimentado())
+                        {
+                            rbtAlimSi.setSelected(true);
+                        }
+                        else
+                        {
+                            rbtAlimNo.setSelected(true);
+                        }
+
+                        if(animalSal.isDescansando())
+                        {
+                            rbtDescSi.setSelected(true);
+                        }
+                        else
+                        {
+                          rbtDescNo.setSelected(true); 
+                        }
+                }  
+                if (animalDom.getNombre()!=null)
+                {
+                
+                        txtNombre.setText(animalDom.getNombre());
+                        txtEspecie.setText(animalDom.getEspecie());
+                        txtEdad.setText(Integer.toString(animalDom.getEdad()));
+
+                        if (animalDom.getSexo()=='M')
+                        {
+                            rbMasculino.setSelected(true);
+                           
+                        }
+                        else 
+                        {
+                            rbFemenino.setSelected(true);
+                            
+                        }
+                        rbAnimalDomestico.setSelected(true);
+
+
+                        
+                        listUso.setSelectedItem(animalDom.getUso());
+                       
+
+                        if (animalDom.isAlimentado())
+                        {
+                            rbtAlimSi.setSelected(true);
+                        }
+                        else
+                        {
+                            rbtAlimNo.setSelected(true);
+                        }
+
+                        if(animalDom.isDescansando())
+                        {
+                            rbtDescSi.setSelected(true);
+                        }
+                        else
+                        {
+                          rbtDescNo.setSelected(true);
+                        }
+                }  
+        }
          
     }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
+        // TODO add your handling code here:
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiar1ActionPerformed
 
     /**
      * @param args the command line arguments

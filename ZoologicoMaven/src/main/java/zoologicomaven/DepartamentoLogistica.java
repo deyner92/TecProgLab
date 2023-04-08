@@ -63,24 +63,82 @@ public class DepartamentoLogistica
          }
                 
         } 
-    public static void MostrarAnimalSalvaje(){
+    
+    public static AnimalSalvaje MostrarAnimalSalvaje(int pCodigo){
+    int i;
+    ArrayList <AnimalSalvaje>  lista =new ArrayList();
+    AnimalSalvaje animal =new AnimalSalvaje();
+    lista=DepartamentoLogistica.getArrayAnimalSalvaje();
+    
+        for (i=0; i<lista.size();i++)
+        {
+            if (lista.get(i).getCodigo()==pCodigo)
+                animal=lista.get(i);
+
+         }
+      return animal;        
+     } 
+    
+        public static AnimalDomestico MostrarAnimalDomestico(int pCodigo){
+    int i;
+    ArrayList <AnimalDomestico>  lista =new ArrayList();
+    AnimalDomestico animal =new AnimalDomestico();
+    lista=DepartamentoLogistica.getArrayAnimalDomestico();
+    
+        for (i=0; i<lista.size();i++)
+        {
+            if (lista.get(i).getCodigo()==pCodigo)
+                animal=lista.get(i);
+
+         }
+      return animal;        
+     } 
+   public static void ActualizarAnimalSalvaje(String pNivelPeligrosidad, int pCodigo, String pNombre, String pEspecie, char pSexo, int pEdad,boolean pAlimentado,boolean pDescansando)
+     {
     int i;
     ArrayList <AnimalSalvaje>  lista =new ArrayList();
     lista=DepartamentoLogistica.getArrayAnimalSalvaje();
     
-    for (i=0; i<lista.size();i++)
-    {
-        System.out.println(lista.get(i).getCodigo());
-        System.out.println(lista.get(i).getNombre());
-        System.out.println(lista.get(i).getEspecie());
-        System.out.println(lista.get(i).getNivelPeligrosidad());
-        System.out.println(lista.get(i).getSexo());
-        System.out.println(lista.get(i).getEdad());
-        System.out.println("---------------------");
-        
-         }
+        for (i=0; i<lista.size();i++)
+        {
+            if (lista.get(i).getCodigo()==pCodigo)
+            {
                 
-        } 
-  
+                lista.get(i).setNombre(pNombre);
+                lista.get(i).setEspecie(pEspecie);
+                lista.get(i).setNivelPeligrosidad(pNivelPeligrosidad);
+                lista.get(i).setSexo(pSexo);
+                lista.get(i).setEdad(pEdad);
+                lista.get(i).setAlimentado(pAlimentado);
+                lista.get(i).setDescansando(pDescansando);
+            }
+
+         }
+                 
+     } 
+   
+   public static void ActualizarAnimalDomestico(String pUso, int pCodigo, String pNombre, String pEspecie, char pSexo, int pEdad,boolean pAlimentado,boolean pDescansando)
+     {
+    int i;
+    ArrayList <AnimalDomestico>  lista =new ArrayList();
+    lista=DepartamentoLogistica.getArrayAnimalDomestico();
+    
+        for (i=0; i<lista.size();i++)
+        {
+            if (lista.get(i).getCodigo()==pCodigo)
+            {
+                
+                lista.get(i).setNombre(pNombre);
+                lista.get(i).setEspecie(pEspecie);
+                lista.get(i).setUso(pUso);
+                lista.get(i).setSexo(pSexo);
+                lista.get(i).setEdad(pEdad);
+                lista.get(i).setAlimentado(pAlimentado);
+                lista.get(i).setDescansando(pDescansando);
+            }
+
+         }
+                 
+     } 
 
 }
